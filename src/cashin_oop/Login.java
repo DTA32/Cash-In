@@ -195,6 +195,12 @@ public class Login extends javax.swing.JFrame {
             }
             else if(uname_input.equals("kasir") && pwd_input.equals("kasir")){
                 // TODO: Kasir
+                MenuKasir mK = new MenuKasir();
+		mK.setVisible(true);
+		mK.pack();
+		mK.setLocationRelativeTo(null);
+		mK.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
+                dispose();
             }
         }
         else{
