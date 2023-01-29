@@ -3,11 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package cashin_oop;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
  *
- * @author bandu
+ * @author DTA32
  */
 public class Login extends javax.swing.JFrame {
 
@@ -164,14 +169,36 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ArrayList<String> uname_cred = new ArrayList<>();
-        uname_cred.add("admin");
-        uname_cred.add("kasir");
-        uname_cred.add("supervisor");
+//        uname_cred.add("admin");
+//        uname_cred.add("kasir");
+//        uname_cred.add("supervisor");
 		
         ArrayList<String> pwd_cred = new ArrayList<>();
-        pwd_cred.add("admin");
-        pwd_cred.add("kasir");
-        pwd_cred.add("supervisor");
+//        pwd_cred.add("admin");
+//        pwd_cred.add("kasir");
+//        pwd_cred.add("supervisor");
+
+        // new
+        ArrayList<Integer> tipe = new ArrayList<>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();     
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        
+        try{
+           Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+           Statement stat = conn.createStatement();
+           ResultSet rs = stat.executeQuery("SELECT * FROM user"); 
+           while(rs.next()){
+            String id_user = rs.getString("id_user");
+            uname_cred.add(rs.getString("username"));
+            pwd_cred.add(rs.getString("password"));
+            tipe.add(rs.getInt("tipe"));
+            }
+        } catch (SQLException se){
+        }
+
         
         String uname_input = jTextField1.getText();
         String pwd_input = jPasswordField1.getText();
@@ -206,6 +233,8 @@ public class Login extends javax.swing.JFrame {
         else{
             jLabel5.setVisible(true);
         }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed

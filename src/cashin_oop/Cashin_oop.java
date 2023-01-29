@@ -4,9 +4,13 @@
  */
 package cashin_oop;
 
+// TODO
+// Connect Database
+// 
+
 /**
  *
- * @author bandu
+ * @author DTA32
  */
 public class Cashin_oop {
 
