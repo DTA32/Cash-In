@@ -16,8 +16,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DTA32
  */
-public class SPV{
-    public static JTable retrieveTabelTrx(){
+public class User {
+    public static JTable retrieveTabelBarang(){
         JTable tab = new JTable();
         DefaultTableModel model = new DefaultTableModel();
         try{
@@ -26,17 +26,19 @@ public class SPV{
             System.out.println(e);
         }
         
-        String[] namaKolom = {"ID Transaksi", "Tanggal", "Total"};
+        String[] namaKolom = {"ID Barang", "Nama", "Kategori", "Harga", "Stok"};
         model.setColumnIdentifiers(namaKolom);
         try{
            Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
            Statement stat = conn.createStatement();
-           ResultSet rs = stat.executeQuery("SELECT * FROM transaksi"); 
+           ResultSet rs = stat.executeQuery("SELECT * FROM barang"); 
            while(rs.next()){
-            String idtrx = rs.getString("id_transaksi");
-            java.sql.Date tanggal = rs.getDate("tanggal");
-            int total = rs.getInt("total");
-            model.addRow(new Object[]{idtrx, tanggal, total});
+            String idbarang = rs.getString("id_produk");
+            String nama_barang = rs.getString("nama_barang");
+            String kategori = rs.getString("kategori");
+            int harga = rs.getInt("harga");
+            int stok = rs.getInt("stok");
+            model.addRow(new Object[]{idbarang, nama_barang, kategori, harga, stok});
             }
         } catch (SQLException se){
         }
