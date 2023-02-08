@@ -1,8 +1,8 @@
 # Cash - In
 
 Aplikasi Kasir <br>
-Projek Akhir Matkul OOP <br>
-Dibuat menggunakan Netbeans IDE <br>
+Projek Akhir Mata Kuliah OOP Kelompok 10 <br>
+Dibuat menggunakan bahasa Java dengan Swing sebagai Framework GUI dan Netbeans sebagai IDE nya <br>
 <br>
 Berikut adalah screenshot dari program<br>
 
