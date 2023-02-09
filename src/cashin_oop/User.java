@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DTA32
  */
-public class User {
+public abstract class User {
     public static JTable retrieveTabelBarang(){
         JTable tab = new JTable();
         DefaultTableModel model = new DefaultTableModel();

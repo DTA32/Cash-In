@@ -84,4 +84,33 @@ public class Admin  extends User{
         tab.setModel(model);
         return tab;
     }
+    
+    public static void InsertBarang(String IDB, String Nama, String Kategory, int Harga, int Stok){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();     
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        try{
+           Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+           Statement stat = conn.createStatement();
+           String input = "INSERT INTO barang VALUES (" + IDB + ", '" + Nama + "', '" + Kategory + "', " + Harga + ", " + Stok + ")";
+           stat.executeUpdate(input);
+        } catch (SQLException se){
+           }
+    }
+    public static void deleteBarang(int IDBarang){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();     
+        } catch (Exception e){
+            System.out.println(e);
+        }
+        try{
+           Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+           Statement stat = conn.createStatement();
+           String sql = "DELETE FROM barang WHERE id_produk = " + IDBarang;
+           stat.executeUpdate(sql);
+        } catch (SQLException se){
+           }
+    }
 }
