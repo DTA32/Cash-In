@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package cashin_oop;
+import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -74,12 +75,6 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Username:");
 
         jLabel4.setText("Password:");
@@ -92,15 +87,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel5.setText("Error");
+        jLabel5.setText("Error: No info returned");
         jLabel5.setVisible(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -108,20 +97,18 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jPasswordField1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(164, 164, 164)
                 .addComponent(jButton1)
                 .addContainerGap(176, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel4)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addComponent(jPasswordField1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -161,85 +148,116 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
         ArrayList<String> uname_cred = new ArrayList<>();
-//        uname_cred.add("admin");
-//        uname_cred.add("kasir");
-//        uname_cred.add("supervisor");
-		
-        ArrayList<String> pwd_cred = new ArrayList<>();
-//        pwd_cred.add("admin");
-//        pwd_cred.add("kasir");
-//        pwd_cred.add("supervisor");
 
         // new
-        ArrayList<Integer> tipe = new ArrayList<>();
+        final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        final String DB_URL = "jdbc:mysql://@localhost:3306/cashin";
+        final String USER = "vscode";
+        final String PASS = "root";
+
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();     
+            Class.forName(JDBC_DRIVER);
         } catch (Exception e){
-            System.out.println(e);
-        }
-        
-        try{
-           Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
-           Statement stat = conn.createStatement();
-           ResultSet rs = stat.executeQuery("SELECT * FROM user"); 
-           while(rs.next()){
-            String id_user = rs.getString("id_user");
-            uname_cred.add(rs.getString("username"));
-            pwd_cred.add(rs.getString("password"));
-            tipe.add(rs.getInt("tipe"));
-            }
-        } catch (SQLException se){
+            jLabel5.setText("Driver Error: "+e.getMessage());
+            jLabel5.setVisible(true);
         }
 
-        
+
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); Statement stat = conn.createStatement()){
+           String query = "SELECT username FROM user";
+           ResultSet rs = stat.executeQuery(query);
+           while(rs.next()){
+            uname_cred.add(rs.getString("username"));
+           }
+        } catch (SQLException se){
+            jLabel5.setText("SQL Error: "+se.getMessage());
+            jLabel5.setVisible(true);
+        }
+
         String uname_input = jTextField1.getText();
-        String pwd_input = jPasswordField1.getText();
+        char[] pwd_input = jPasswordField1.getPassword();
         
-        if(uname_cred.contains(uname_input) && pwd_cred.contains(pwd_input)){
-            if(uname_input.equals("admin") && pwd_input.equals("admin")){
-                MenuAdmin mA = new MenuAdmin();
-		mA.setVisible(true);
-		mA.pack();
-		mA.setLocationRelativeTo(null);
-		mA.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-                dispose();
+        if(uname_cred.contains(uname_input)){
+            String passwordDB = "";
+            try{
+                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                Statement stat = conn.createStatement();
+                String query = "SELECT password FROM user WHERE username = \"" + uname_input + "\"";
+                ResultSet rs = stat.executeQuery(query);
+                while(rs.next()){
+                    passwordDB = rs.getString("password");
+                }
+                stat.close();
+                conn.close();
             }
-            else if(uname_input.equals("supervisor") && pwd_input.equals("supervisor")){
-                MenuSPV mS = new MenuSPV();
-		mS.setVisible(true);
-		mS.pack();
-		mS.setLocationRelativeTo(null);
-		mS.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-                dispose();
+            catch (Exception e){
+                jLabel5.setText("Error: "+e.getMessage());
+                jLabel5.setVisible(true);
             }
-            else if(uname_input.equals("kasir") && pwd_input.equals("kasir")){
-                // TODO: Kasir
-                MenuKasir mK = new MenuKasir();
-		mK.setVisible(true);
-		mK.pack();
-		mK.setLocationRelativeTo(null);
-		mK.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-                dispose();
+            if(!passwordDB.isEmpty() && passwordDB.equals(new String(pwd_input))){
+                int tipeDB = 0;
+                try{
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+                    Statement stat = conn.createStatement();
+                    String query = "SELECT tipe FROM user WHERE username = \"" + uname_input + "\"";
+                    ResultSet rs = stat.executeQuery(query);
+                    while(rs.next()){
+                        tipeDB = rs.getInt(1);
+                    }
+                    stat.close();
+                    conn.close();
+                }
+                catch (SQLException se){
+                    jLabel5.setText("SQL Error: "+se.getMessage());
+                    jLabel5.setVisible(true);
+                }
+                switch (tipeDB) {
+                    case 1 -> {
+                        MenuAdmin mA = new MenuAdmin();
+                        mA.setVisible(true);
+                        mA.pack();
+                        mA.setLocationRelativeTo(null);
+                        mA.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
+                        dispose();
+                    }
+                    case 2 -> {
+                        MenuSPV mS = new MenuSPV();
+                        mS.setVisible(true);
+                        mS.pack();
+                        mS.setLocationRelativeTo(null);
+                        mS.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
+                        dispose();
+                    }
+                    case 3 -> {
+                        MenuKasir mK = new MenuKasir();
+                        mK.setVisible(true);
+                        mK.pack();
+                        mK.setLocationRelativeTo(null);
+                        mK.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
+                        dispose();
+                    }
+                    default -> {
+                        jLabel5.setText("Error in fetching user type");
+                        jLabel5.setVisible(true);
+                    }
+                }
+            }
+            else{
+                jLabel5.setText("Wrong password");
+                jLabel5.setVisible(true);
             }
         }
         else{
+            jLabel5.setText("User not found");
             jLabel5.setVisible(true);
         }
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,10 +287,8 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
         });
     }
 
@@ -288,4 +304,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 }

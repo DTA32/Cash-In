@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cashin_oop">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/cashin_oop.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
