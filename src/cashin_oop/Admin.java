@@ -99,6 +99,23 @@ public class Admin  extends User{
         } catch (SQLException se){
            }
     }
+    
+    public static void UpdateBarang(String ID, String Nama, String Kategori, int Harga, int Stok){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        try{
+              Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+              Statement stat = conn.createStatement();
+              String sql = "UPDATE barang SET nama_barang = '" + Nama + "', kategori = '" + Kategori + "', harga = " + Harga + ", stok = " + Stok + " WHERE id_produk = " + ID;
+              stat.executeUpdate(sql);
+          } catch (SQLException se){
+            System.out.println(se.getMessage());
+        }
+    }
+    
     public static void deleteBarang(int IDBarang){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();     
@@ -112,5 +129,35 @@ public class Admin  extends User{
            stat.executeUpdate(sql);
         } catch (SQLException se){
            }
+    }
+
+    public static JTable retrieveTabelTrxDetail(int id){
+        JTable tab = new JTable();
+        DefaultTableModel model = new DefaultTableModel();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+        String[] namaKolom = {"ID Barang", "Nama", "Harga", "Kuantitas", "Subtotal"};
+        model.setColumnIdentifiers(namaKolom);
+        try{
+           Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+           Statement stat = conn.createStatement();
+           ResultSet rs = stat.executeQuery("SELECT * FROM transaksi_detail WHERE id_transaksi = " + id);
+           while(rs.next()){
+            String idbarang = rs.getString("id_barang");
+            String nama_barang = rs.getString("nama");
+            int harga = rs.getInt("harga");
+            int kuantitas = rs.getInt("kuantitas");
+            int subtotal = rs.getInt("subtotal");
+            model.addRow(new Object[]{idbarang, nama_barang, harga, kuantitas, subtotal});
+            }
+        } catch (SQLException se){
+            System.out.println(se.getMessage());
+        }
+        tab.setModel(model);
+        return tab;
     }
 }

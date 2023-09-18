@@ -181,80 +181,87 @@ public class Login extends javax.swing.JFrame {
         String uname_input = jTextField1.getText();
         char[] pwd_input = jPasswordField1.getPassword();
         
-        if(uname_cred.contains(uname_input)){
-            String passwordDB = "";
-            try{
-                Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                Statement stat = conn.createStatement();
-                String query = "SELECT password FROM user WHERE username = \"" + uname_input + "\"";
-                ResultSet rs = stat.executeQuery(query);
-                while(rs.next()){
-                    passwordDB = rs.getString("password");
-                }
-                stat.close();
-                conn.close();
-            }
-            catch (Exception e){
-                jLabel5.setText("Error: "+e.getMessage());
-                jLabel5.setVisible(true);
-            }
-            if(!passwordDB.isEmpty() && passwordDB.equals(new String(pwd_input))){
-                int tipeDB = 0;
+        if(uname_input.isEmpty() || new String(pwd_input).isEmpty()){
+            jLabel5.setText("Please fill all field");
+            jLabel5.setVisible(true);
+        }
+        else{
+            if(uname_cred.contains(uname_input)){
+                String passwordDB = "";
                 try{
-                    Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+                    Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
                     Statement stat = conn.createStatement();
-                    String query = "SELECT tipe FROM user WHERE username = \"" + uname_input + "\"";
+                    String query = "SELECT password FROM user WHERE username = \"" + uname_input + "\"";
                     ResultSet rs = stat.executeQuery(query);
                     while(rs.next()){
-                        tipeDB = rs.getInt(1);
+                        passwordDB = rs.getString("password");
                     }
                     stat.close();
                     conn.close();
                 }
-                catch (SQLException se){
-                    jLabel5.setText("SQL Error: "+se.getMessage());
+                catch (Exception e){
+                    jLabel5.setText("Error: "+e.getMessage());
                     jLabel5.setVisible(true);
                 }
-                switch (tipeDB) {
-                    case 1 -> {
-                        MenuAdmin mA = new MenuAdmin();
-                        mA.setVisible(true);
-                        mA.pack();
-                        mA.setLocationRelativeTo(null);
-                        mA.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-                        dispose();
+                if(!passwordDB.isEmpty() && passwordDB.equals(new String(pwd_input))){
+                    int tipeDB = 0;
+                    try{
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+                        Statement stat = conn.createStatement();
+                        String query = "SELECT tipe FROM user WHERE username = \"" + uname_input + "\"";
+                        ResultSet rs = stat.executeQuery(query);
+                        while(rs.next()){
+                            tipeDB = rs.getInt(1);
+                        }
+                        stat.close();
+                        conn.close();
                     }
-                    case 2 -> {
-                        MenuSPV mS = new MenuSPV();
-                        mS.setVisible(true);
-                        mS.pack();
-                        mS.setLocationRelativeTo(null);
-                        mS.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-                        dispose();
-                    }
-                    case 3 -> {
-                        MenuKasir mK = new MenuKasir();
-                        mK.setVisible(true);
-                        mK.pack();
-                        mK.setLocationRelativeTo(null);
-                        mK.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-                        dispose();
-                    }
-                    default -> {
-                        jLabel5.setText("Error in fetching user type");
+                    catch (SQLException se){
+                        jLabel5.setText("SQL Error: "+se.getMessage());
                         jLabel5.setVisible(true);
                     }
+                    switch (tipeDB) {
+                        case 1 -> {
+                            MenuAdmin mA = new MenuAdmin();
+                            mA.setVisible(true);
+                            mA.pack();
+                            mA.setLocationRelativeTo(null);
+                            mA.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
+                            dispose();
+                        }
+                        case 2 -> {
+                            MenuSPV mS = new MenuSPV();
+                            mS.setVisible(true);
+                            mS.pack();
+                            mS.setLocationRelativeTo(null);
+                            mS.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
+                            dispose();
+                        }
+                        case 3 -> {
+                            MenuKasir mK = new MenuKasir();
+                            mK.setVisible(true);
+                            mK.pack();
+                            mK.setLocationRelativeTo(null);
+                            mK.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
+                            dispose();
+                        }
+                        default -> {
+                            jLabel5.setText("Error in fetching user type");
+                            jLabel5.setVisible(true);
+                        }
+                    }
+                }
+                else{
+                    jLabel5.setText("Wrong password");
+                    jLabel5.setVisible(true);
                 }
             }
             else{
-                jLabel5.setText("Wrong password");
+                jLabel5.setText("User not found");
                 jLabel5.setVisible(true);
             }
         }
-        else{
-            jLabel5.setText("User not found");
-            jLabel5.setVisible(true);
-        }
+        
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
