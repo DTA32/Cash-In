@@ -1,3 +1,12 @@
 *.class
 *.form
 note_to_me.txt
+# NetBeans specific
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
