@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package cashin_oop;
+import java.awt.event.KeyEvent;
 import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -84,6 +85,12 @@ public class Login extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
             }
         });
 
@@ -181,7 +188,7 @@ public class Login extends javax.swing.JFrame {
         String uname_input = jTextField1.getText();
         char[] pwd_input = jPasswordField1.getPassword();
         
-        if(uname_input.isEmpty() || new String(pwd_input).isEmpty()){
+        if(uname_input.isBlank() || new String(pwd_input).isBlank()){
             jLabel5.setText("Please fill all field");
             jLabel5.setVisible(true);
         }
@@ -203,7 +210,7 @@ public class Login extends javax.swing.JFrame {
                     jLabel5.setText("Error: "+e.getMessage());
                     jLabel5.setVisible(true);
                 }
-                if(!passwordDB.isEmpty() && passwordDB.equals(new String(pwd_input))){
+                if(!passwordDB.isBlank() && passwordDB.equals(new String(pwd_input))){
                     int tipeDB = 0;
                     try{
                         Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
@@ -261,10 +268,13 @@ public class Login extends javax.swing.JFrame {
                 jLabel5.setVisible(true);
             }
         }
-        
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            jButton1ActionPerformed(null);
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     /**
      * @param args the command line arguments

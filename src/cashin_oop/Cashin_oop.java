@@ -4,10 +4,6 @@
  */
 package cashin_oop;
 
-// TODO
-// Connect Database
-// 
-
 /**
  *
  * @author DTA32
@@ -18,7 +14,6 @@ public class Cashin_oop {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         Login lg = new Login();
 	lg.setVisible(true);
 	lg.pack();
