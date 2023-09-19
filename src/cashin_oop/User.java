@@ -16,14 +16,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DTA32
  */
-public abstract class User {
+public class User {
     public static JTable retrieveTabelBarang(){
         JTable tab = new JTable();
         DefaultTableModel model = new DefaultTableModel();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();     
-        } catch (Exception e){
-            System.out.println(e);
+            Class.forName("com.mysql.cj.jdbc.Driver");     
+        } catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());
         }
         
         String[] namaKolom = {"ID Barang", "Nama", "Kategori", "Harga", "Stok"};
@@ -41,6 +41,7 @@ public abstract class User {
             model.addRow(new Object[]{idbarang, nama_barang, kategori, harga, stok});
             }
         } catch (SQLException se){
+            System.out.println(se.getMessage());
         }
         tab.setModel(model);
         return tab;

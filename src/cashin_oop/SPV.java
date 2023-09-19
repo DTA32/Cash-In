@@ -6,41 +6,74 @@ package cashin_oop;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author DTA32
  */
-public class SPV{
-    public static JTable retrieveTabelTrx(){
-        JTable tab = new JTable();
-        DefaultTableModel model = new DefaultTableModel();
+public class SPV extends Management{
+    public static void deleteTrx(int id){
+        // delete all transaksi_detail related to transaksi
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();     
-        } catch (Exception e){
+            Class.forName("com.mysql.cj.jdbc.Driver");     
+        } catch (ClassNotFoundException e){
             System.out.println(e);
         }
-        
-        String[] namaKolom = {"ID Transaksi", "Tanggal", "Total"};
-        model.setColumnIdentifiers(namaKolom);
         try{
            Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
            Statement stat = conn.createStatement();
-           ResultSet rs = stat.executeQuery("SELECT * FROM transaksi"); 
-           while(rs.next()){
-            String idtrx = rs.getString("id_transaksi");
-            java.sql.Date tanggal = rs.getDate("tanggal");
-            int total = rs.getInt("total");
-            model.addRow(new Object[]{idtrx, tanggal, total});
-            }
+           String sql = "DELETE FROM transaksi_detail WHERE id_transaksi = " + id;
+           stat.executeUpdate(sql);
         } catch (SQLException se){
+            System.out.println(se.getMessage());
+           }
+        // delete the transaksi
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            System.out.println(e);
         }
-        tab.setModel(model);
-        return tab;
+        try{
+           Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+           Statement stat = conn.createStatement();
+           String sql = "DELETE FROM transaksi WHERE id_transaksi = " + id;
+           stat.executeUpdate(sql);
+        } catch (SQLException se){
+            System.out.println(se.getMessage());
+           }
+    }
+    public static void updateTrx(int id, TableModel model){
+        int total = 0;
+        for(int i = 0; i < model.getRowCount(); i++){
+            // masih belum safe
+            int harga = Integer.parseInt(model.getValueAt(i, 2).toString());
+            int kuantitas = Integer.parseInt(model.getValueAt(i, 3).toString());
+            int subtotal = harga * kuantitas;
+            total += subtotal;
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException e){
+                System.out.println(e);
+            }
+            try{
+                Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+                Statement stat = conn.createStatement();
+                String sql = "UPDATE transaksi_detail SET kuantitas = " + kuantitas + ", subtotal = " + subtotal + " WHERE id_transaksi = " + id + " AND id_barang = " + model.getValueAt(i, 0);
+                stat.executeUpdate(sql);
+            } catch (SQLException se){
+                System.out.println(se.getMessage());
+            }
+        }
+        try{
+            Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
+            Statement stat = conn.createStatement();
+            String sql = "UPDATE transaksi SET total = " + total + " WHERE id_transaksi = " + id;
+            stat.executeUpdate(sql);
+        } catch (SQLException se){
+            System.out.println(se.getMessage());
+        }
     }
 }

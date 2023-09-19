@@ -47,8 +47,6 @@ public class MenuAdmin extends javax.swing.JFrame {
         jTextField10 = new javax.swing.JTextField();
         jTextField11 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
@@ -147,8 +145,6 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel13.setText("Kategori");
 
-        jLabel9.setText("ID Barang");
-
         jLabel10.setText("Nama");
 
         jLabel16.setText("Stok");
@@ -173,15 +169,13 @@ public class MenuAdmin extends javax.swing.JFrame {
                                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel13)
-                                    .addComponent(jLabel9)
                                     .addComponent(jLabel14)
                                     .addComponent(jLabel16))
-                                .addGap(100, 100, 100)
+                                .addGap(107, 107, 107)
                                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                                     .addComponent(jTextField9)
                                     .addComponent(jTextField8)
-                                    .addComponent(jTextField7)
                                     .addComponent(jTextField10)))
                             .addGroup(jFrame1Layout.createSequentialGroup()
                                 .addGap(179, 179, 179)
@@ -198,11 +192,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(jFrame1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel8)
-                .addGap(48, 48, 48)
-                .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(82, 82, 82)
                 .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -445,6 +435,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.setDefaultEditor(Object.class, null);
 
         jTextField1.setToolTipText("");
         jTextField1.setName(""); // NOI18N
@@ -616,11 +607,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel15.setText("ID Transaksi:");
 
-        jLabel18.setText("IDTRX");
-
         jLabel19.setText("Tanggal:");
-
-        jLabel24.setText("TanggalTRX");
 
         jTable2.setAutoCreateRowSorter(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -636,12 +623,12 @@ public class MenuAdmin extends javax.swing.JFrame {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
         jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable2.setDefaultEditor(Object.class, null);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Total:");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setText("HargaTotal");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -762,6 +749,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTable4);
         jTable4.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable4.setDefaultEditor(Object.class, null);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -843,8 +831,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTable3);
         jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.setRowSelectionAllowed(true);
-        jTable1.setRowSelectionInterval(0, 0);
+        jTable3.setDefaultEditor(Object.class, null);
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel21.setText("User Detail");
@@ -998,24 +985,22 @@ public class MenuAdmin extends javax.swing.JFrame {
         
         String NamaBarang = jTextField8.getText();
         String Kategori = jTextField9.getText();
-        if(!isInt(jTextField7.getText()) || !isInt(jTextField11.getText()) || !isInt(jTextField10.getText())){
+        if( !isInt(jTextField11.getText()) || !isInt(jTextField10.getText())){
             jLabel34.setText("ID, harga, or stock must be number");
             jLabel34.setVisible(true);
         }
-        if(jTextField7.getText().isBlank() || NamaBarang.isBlank() || Kategori.isBlank() || jTextField10.getText().isBlank() || jTextField11.getText().isBlank()){
+        if( NamaBarang.isBlank() || Kategori.isBlank() || jTextField10.getText().isBlank() || jTextField11.getText().isBlank()){
             jLabel34.setText("Please fill all field");
             jLabel34.setVisible(true);
         }
         else{
-            int IDBarang = Integer.parseInt(jTextField7.getText());
             int harga = Integer.parseInt(jTextField10.getText());
             int stok = Integer.parseInt(jTextField11.getText());
-            String stat = Admin.InsertBarang(IDBarang, NamaBarang, Kategori, harga, stok);
+            String stat = Admin.InsertBarang( NamaBarang, Kategori, harga, stok);
             if(!stat.equalsIgnoreCase("success")){
                 jLabel34.setText("Error: "+stat);
             }
             else{
-                jTextField7.setText("");
                 jTextField8.setText("");
                 jTextField9.setText("");
                 jTextField10.setText("");
@@ -1316,7 +1301,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel13;
@@ -1352,7 +1336,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
