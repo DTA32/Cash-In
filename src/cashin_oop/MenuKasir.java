@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package cashin_oop;
+import java.awt.event.KeyEvent;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,7 +17,11 @@ public class MenuKasir extends javax.swing.JFrame {
      * Creates new form MenuKasir
      */
     public MenuKasir() {
+        this.cartModel = new DefaultTableModel();
+        String[] namaKolom = {"ID Barang", "Nama", "Harga", "Kuantitas", "Subtotal"};
+        this.cartModel.setColumnIdentifiers(namaKolom);
         initComponents();
+        jTable2.setModel(cartModel);
     }
     
     private static JTable temp = new JTable();
@@ -23,6 +29,8 @@ public class MenuKasir extends javax.swing.JFrame {
     private static void importTable(JTable source){
         temp.setModel(source.getModel());
     }
+    
+    private DefaultTableModel cartModel;
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,8 +59,6 @@ public class MenuKasir extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
@@ -62,13 +68,12 @@ public class MenuKasir extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton14 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -85,21 +90,31 @@ public class MenuKasir extends javax.swing.JFrame {
         jLabel3.setText("Total:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setText("HargaTotal");
+        jLabel7.setText("0");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Bayar:");
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Kembali:");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setText("TotalKembali");
+        jLabel12.setText("0");
 
         jButton8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton8.setText("Selesai");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
 
         jButton9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton9.setText("Print Struk");
@@ -173,20 +188,19 @@ public class MenuKasir extends javax.swing.JFrame {
 
         jButton10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton10.setText("Selesai");
+        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton10MouseClicked(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel18.setText("HargaTotal");
+        jLabel18.setText("0");
 
         jButton11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton11.setText("Print Struk");
 
         jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel17.setText("ID Transaksi:");
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel19.setText("IDTRX");
 
         javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
         jDialog2.getContentPane().setLayout(jDialog2Layout);
@@ -194,38 +208,33 @@ public class MenuKasir extends javax.swing.JFrame {
             jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog2Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jButton10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(jButton11)
-                .addContainerGap(58, Short.MAX_VALUE))
-            .addGroup(jDialog2Layout.createSequentialGroup()
+                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton10)
+                    .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel16)))
                 .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDialog2Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel13))
-                    .addGroup(jDialog2Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 33, Short.MAX_VALUE)
                         .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
                             .addComponent(jLabel18)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(58, Short.MAX_VALUE))
+                    .addGroup(jDialog2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton11)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jDialog2Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(jLabel13)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDialog2Layout.setVerticalGroup(
             jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(jLabel13)
-                .addGap(30, 30, 30)
-                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel19))
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel18))
@@ -233,11 +242,11 @@ public class MenuKasir extends javax.swing.JFrame {
                 .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                .addGap(47, 47, 47)
                 .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton10)
                     .addComponent(jButton11))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -252,20 +261,44 @@ public class MenuKasir extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Tabel Barang", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Tabel Barang", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
 
         jButton2.setText("Cari");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setText("Tambah Barang");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         importTable(Kasir.retrieveTabelBarang());
         jTable1.setModel(temp.getModel());
-        jTable1.setColumnSelectionAllowed(true);
+        jTable1.setCellSelectionEnabled(false);
+        jTable1.setRowSelectionAllowed(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.setRowSelectionAllowed(true);
-        jTable1.setRowSelectionInterval(0, 0);
+        jTable1.setDefaultEditor(Object.class, null);
+
+        jButton14.setText("X");
+        jButton14.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton14MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -274,6 +307,8 @@ public class MenuKasir extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3))
@@ -284,70 +319,67 @@ public class MenuKasir extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton14)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        jButton14.setVisible(false);
+
         jSplitPane1.setLeftComponent(jPanel1);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Transaksi", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Transaksi", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {}
             },
             new String [] {
-                "ID Barang", "Nama", "Harga", "Kuantitas", "Subtotal"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        jTable2.setColumnSelectionAllowed(true);
+        ));
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
         jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable2.setRowSelectionInterval(0, 0);
+        jTable2.setDefaultEditor(Object.class, null);
 
         jButton4.setText("Baru");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         jButton5.setText("Hapus Barang");
-
-        jLabel4.setText("ID Transaksi:");
-
-        jLabel5.setText("IDTRX");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Total:");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("HargaTotal");
+        jLabel10.setText("0");
 
         jLabel6.setText("Pembayaran");
 
         jButton6.setText("Tunai");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
             }
         });
 
         jButton7.setText("Kartu");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
             }
         });
 
@@ -360,10 +392,6 @@ public class MenuKasir extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton4)
@@ -383,10 +411,7 @@ public class MenuKasir extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -400,7 +425,7 @@ public class MenuKasir extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
                     .addComponent(jButton7))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(jPanel2);
@@ -449,19 +474,159 @@ public class MenuKasir extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        jDialog1.setVisible(true);
-        jDialog1.pack();
-	jDialog1.setLocationRelativeTo(this);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
+        importTable(Kasir.retrieveTabelBarang());
+        jTable1.setModel(temp.getModel());
+        jTextField1.setText("");
+        jButton14.setVisible(false);
+    }//GEN-LAST:event_jButton14MouseClicked
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        jDialog2.setVisible(true);
-        jDialog2.pack();
-	jDialog2.setLocationRelativeTo(this);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        String search = jTextField1.getText().toLowerCase();
+        if(search.isBlank()){
+            jButton14MouseClicked(evt);
+        }
+        else{
+            DefaultTableModel model = (DefaultTableModel) Kasir.retrieveTabelBarang().getModel();
+            DefaultTableModel filtered = new DefaultTableModel();
+            String[] namaKolom = {"ID Barang", "Nama", "Kategori", "Harga", "Stok"};
+            filtered.setColumnIdentifiers(namaKolom);
+            for(int i = 0; i < model.getRowCount(); i++){
+                Boolean condition1 = model.getValueAt(i, 1).toString().toLowerCase().contains(search);
+                Boolean condition2 = model.getValueAt(i, 0).toString().toLowerCase().contains(search);
+                Boolean condition3 = model.getValueAt(i, 2).toString().toLowerCase().contains(search);
+                if(condition1 || condition2 || condition3){
+                    Object[] row = new Object[5];
+                    for(int j = 0; j < 5; j++){
+                        row[j] = model.getValueAt(i, j);
+                    }
+                    filtered.addRow(row);
+                }
+            }
+            jTable1.setModel(filtered);
+            jButton14.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        if(!jTable1.getSelectionModel().isSelectionEmpty()){
+            int row = jTable1.getSelectedRow();
+            int id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            String nama = jTable1.getValueAt(row, 1).toString();
+            int harga = Integer.parseInt(jTable1.getValueAt(row, 3).toString());
+            // Check if the item with the same ID is already in the cart
+            int existingRowIndex = -1;
+            for (int i = 0; i < cartModel.getRowCount(); i++) {
+                if (id == Integer.parseInt(cartModel.getValueAt(i, 0).toString())) {
+                    existingRowIndex = i;
+                    break;
+                }
+            }
+
+            int kuantitas = 1;
+            int subtotal = harga * kuantitas;
+            if (existingRowIndex != -1) {
+                // Item already exists in the cart, update the quantity and subtotal
+                kuantitas = Integer.parseInt(cartModel.getValueAt(existingRowIndex, 3).toString()) + 1;
+                subtotal = harga * kuantitas;
+                cartModel.setValueAt(kuantitas, existingRowIndex, 3);
+                cartModel.setValueAt(subtotal, existingRowIndex, 4);
+            } else {
+                // Item is not in the cart, add a new row
+                cartModel.addRow(new Object[]{id, nama, harga, kuantitas, subtotal});
+            }
+
+            // Calculate the total
+            int total = 0;
+            for (int i = 0; i < cartModel.getRowCount(); i++) {
+                total += Integer.parseInt(cartModel.getValueAt(i, 4).toString());
+            }
+            jTable2.setModel(cartModel);
+            jLabel10.setText(Integer.toString(total));
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int row = jTable2.getSelectedRow();
+        if(row != -1){
+            cartModel.removeRow(row);
+            jTable2.setModel(cartModel);
+            int total = 0;
+            for (int i = 0; i < cartModel.getRowCount(); i++) {
+                total += Integer.parseInt(cartModel.getValueAt(i, 4).toString());
+            }
+            jLabel10.setText(Integer.toString(total));
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        this.cartModel = new DefaultTableModel();
+        String[] namaKolom = {"ID Barang", "Nama", "Harga", "Kuantitas", "Subtotal"};
+        this.cartModel.setColumnIdentifiers(namaKolom);
+        jTable2.setModel(cartModel);
+        jLabel10.setText("0");
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            jButton2MouseClicked(null);
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        if(!jLabel10.getText().equals("0")){    
+            jLabel7.setText(jLabel10.getText());
+            jDialog1.pack();
+            jDialog1.setVisible(true);
+            jDialog1.setLocationRelativeTo(this);
+        }
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        if(jTextField2.getText().isBlank()){
+            jLabel12.setText("0");
+        }
+        else{
+            int input = Integer.parseInt(jTextField2.getText());
+            int total = Integer.parseInt(jLabel7.getText());
+            int kembali = input - total;
+            jLabel12.setText(Integer.toString(kembali));
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        if(!jLabel10.getText().equals("0")){
+            jLabel18.setText(jLabel10.getText());
+            jDialog2.pack();
+            jDialog2.setLocationRelativeTo(this);
+            jDialog2.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        if(!jTextField2.getText().isBlank()){
+            if(Integer.parseInt(jTextField2.getText()) >= Integer.parseInt(jLabel7.getText())){
+                Kasir.insertTrx(jTable2.getModel());
+                jLabel7.setText("0");
+                jLabel12.setText("0");
+                jTextField2.setText("");
+                jButton4MouseClicked(evt);
+                jDialog1.setVisible(false);
+                jButton14MouseClicked(evt);
+            }
+        }
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
+        if(!jTextField3.getText().isBlank()){
+            Kasir.insertTrx(jTable2.getModel());
+            jLabel18.setText("0");
+            jTextField3.setText("");
+            jButton4MouseClicked(evt);
+            jDialog2.setVisible(false);
+            jButton14MouseClicked(evt);
+        }
+    }//GEN-LAST:event_jButton10MouseClicked
 
     /**
      * @param args the command line arguments
@@ -502,6 +667,7 @@ public class MenuKasir extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -519,13 +685,9 @@ public class MenuKasir extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

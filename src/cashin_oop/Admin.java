@@ -116,7 +116,6 @@ public class Admin extends Management{
            Connection conn = DriverManager.getConnection("jdbc:mysql://@localhost:3306/cashin", "vscode", "root");
            Statement stat = conn.createStatement();
            String input = "INSERT INTO user VALUES (0,'" + uname + "', '" + pass + "', " + tipe + ")";
-            System.out.println(input);
            stat.executeUpdate(input);
            return true;
         } catch (SQLException se){

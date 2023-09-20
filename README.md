@@ -2,7 +2,7 @@
 
 Aplikasi Kasir <br>
 Projek Akhir Mata Kuliah OOP Kelompok 10 <br>
-Dibuat menggunakan bahasa Java dengan Swing sebagai Framework GUI dan Netbeans sebagai IDE nya <br>
+Dibuat menggunakan bahasa Java dengan Swing sebagai Framework GUI dan Netbeans sebagai IDE <br>
 <br>
 Berikut adalah screenshot dari program<br>
 
@@ -33,3 +33,7 @@ Berikut adalah screenshot dari program<br>
 - Menu Kasir: Membuat Transaksi Baru
 
 ![Kasir Menu](/screenshot/kasirmenu.png)
+
+To be done:
+- export struk dan laporan
+- implement OOP

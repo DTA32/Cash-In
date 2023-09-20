@@ -1017,6 +1017,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         
         jFrame1.pack();
+        jFrame1.setLocationRelativeTo(this);
         jFrame1.setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
 
@@ -1139,6 +1140,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
         jFrame2.pack();
+        jFrame2.setLocationRelativeTo(this);
         jFrame2.setVisible(true);
     }//GEN-LAST:event_jButton11MouseClicked
 

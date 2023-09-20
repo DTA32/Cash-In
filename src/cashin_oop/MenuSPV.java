@@ -90,7 +90,7 @@ public class MenuSPV extends javax.swing.JFrame {
         jDialog1.setResizable(false);
         jDialog1.getContentPane().setLayout(new java.awt.GridLayout(5, 0));
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -113,7 +113,7 @@ public class MenuSPV extends javax.swing.JFrame {
 
         jDialog1.getContentPane().add(jPanel8);
 
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -123,7 +123,7 @@ public class MenuSPV extends javax.swing.JFrame {
 
         jDialog1.getContentPane().add(jPanel5);
 
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
         jPanel4.add(filler1);
 
         jButton2.setText("Ya");
@@ -274,7 +274,6 @@ public class MenuSPV extends javax.swing.JFrame {
             }
         });
         jTable2.setColumnSelectionAllowed(true);
-        jTable2.setRowSelectionAllowed(true);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
         jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -335,7 +334,6 @@ public class MenuSPV extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -432,8 +430,6 @@ public class MenuSPV extends javax.swing.JFrame {
         importTable(SPV.retrieveTabelTrx());
         jTable3.setAutoCreateRowSorter(true);
         jTable3.setModel(temp.getModel());
-        jTable3.setCellSelectionEnabled(false);
-        jTable3.setRowSelectionAllowed(true);
         jTable3.getTableHeader().setReorderingAllowed(false);
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -442,8 +438,7 @@ public class MenuSPV extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTable3);
         jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable3.setRowSelectionAllowed(true);
-        jTable3.setRowSelectionInterval(0, 0);
+        jTable3.setDefaultEditor(Object.class, null);
 
         jButton8.setText("Buat Laporan Penjualan");
         jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -599,11 +594,13 @@ public class MenuSPV extends javax.swing.JFrame {
 
     private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
         jDialog1.pack();
+        jDialog1.setLocationRelativeTo(this);
         jDialog1.setVisible(true);
     }//GEN-LAST:event_jButton9MouseClicked
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
         jDialog2.pack();
+        jDialog2.setLocationRelativeTo(this);
         jDialog2.setVisible(true);
     }//GEN-LAST:event_jButton8MouseClicked
 
