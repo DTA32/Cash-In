@@ -6,33 +6,21 @@ Dibuat menggunakan bahasa Java dengan Swing sebagai Framework GUI dan Netbeans s
 <br>
 Berikut adalah screenshot dari program<br>
 
-- Login Menu
+|Login Menu                     |Menu Admin: Home                        |
+|-------------------------------|----------------------------------------|
+|![Login](/screenshot/login.png)|![Admin Menu](/screenshot/adminmenu.png)|
 
-![Login](/screenshot/login.png)
+| Menu Admin: Manajemen Barang                              | Menu Admin: Histori Transaksi                       |
+|-----------------------------------------------------------|-----------------------------------------------------|
+| ![Admin Manage Barang](/screenshot/adminmanagebarang.png) | ![Admin Manage Transaksi](/screenshot/admintrx.png) |
 
-- Menu Admin: Home
+| Menu Admin: Manage User                         | Menu Supervisor: Manajemen Transaksi        |
+|-------------------------------------------------|---------------------------------------------|
+| ![Admin Manage User](/screenshot/adminuser.png) | ![Supervisor Menu](/screenshot/spvmenu.png) |
 
-![Admin Menu](/screenshot/adminmenu.png)
-
-- Menu Admin: Manajemen Barang
-
-![Admin Manage Barang](/screenshot/adminmanagebarang.png)
-
-- Menu Admin: Histori Transaksi
-
-![Admin Manage Transaksi](/screenshot/admintrx.png)
-
-- Menu Admin: Manage User
-
-![Admin Manage User](/screenshot/adminuser.png)
-
-- Menu Supervisor: Manajemen Transaksi
-
-![Supervisor Menu](/screenshot/spvmenu.png)
-
-- Menu Kasir: Membuat Transaksi Baru
-
-![Kasir Menu](/screenshot/kasirmenu.png)
+|Menu Kasir: Membuat Transaksi Baru|
+|---|
+|![Kasir Menu](/screenshot/kasirmenu.png)|
 
 To be done:
 - export struk dan laporan
